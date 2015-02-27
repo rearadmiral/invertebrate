@@ -42,7 +42,7 @@ And this instantiated data:
 You can use this:
 
 ```
-var invertebrate = require('./index');
+var invertebrate = require('invertebrate');
 var clone = invertebrate(collection);
 ```
 
