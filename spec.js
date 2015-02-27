@@ -39,7 +39,7 @@ describe('Invertebrate', function() {
     });
 
     it('invertebrates each member', function() {
-      var clone = invertebrate(collection);
+      var clone = invertebrate(collection).toJS();
       clone.length.should.be.exactly(2);
       clone[0].age.should.be.exactly(2);
     });
@@ -72,7 +72,7 @@ describe('Invertebrate', function() {
     });
 
     it('includes associated models', function() {
-      invertebrate(model).author.should.have.property('name', 'Karen Russell');
+      invertebrate(model).toJS().author.should.have.property('name', 'Karen Russell');
     });
   });
 
@@ -92,19 +92,27 @@ describe('Invertebrate', function() {
     });
 
     it('creates a plain js object from the attrs', function() {
-      var plain = invertebrate(model);
+      var plain = invertebrate(model).toJS();
       plain.should.have.property('firstName', 'Karen');
       plain.should.have.property('age', 33);
     });
 
     it('includes specified computed props', function() {
-      invertebrate(model).should.have.property('displayName', 'Karen Russell');
+      invertebrate(model).toJS().should.have.property('displayName', 'Karen Russell');
     });
 
     it('returns a clone', function() {
-      var clone = invertebrate(model);
+      var clone = invertebrate(model).toJS();
       clone.firstName = 'Osito';
       model.get('firstName').should.be.exactly('Karen');
+    });
+
+    it('returns an immutable object', function() {
+      var clone = invertebrate(model);
+      clone.get('firstName').should.be.exactly('Karen');
+      var mutatedClone = clone.set('firstName', 'osito');
+      clone.get('firstName').should.be.exactly('Karen');
+      mutatedClone.get('firstName').should.be.exactly('osito');
     });
   });
 });

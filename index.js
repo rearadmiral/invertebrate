@@ -1,11 +1,12 @@
 var _ = require('lodash');
+var Immutable = require('immutable');
 
 var debackbonify = function(model) {
 
   if (model.map) {
-    return model.map(function(member) {
+    return Immutable.List(model.map(function(member) {
       return debackbonify(member);
-    });
+    }));
   }
 
   var clone = _.clone(model.attributes);
@@ -20,7 +21,7 @@ var debackbonify = function(model) {
       clone[relation.key] = debackbonify(associatedModel);
     });
   }
-  return clone;
+  return Immutable.Map(clone);
 };
 
 module.exports = debackbonify;
