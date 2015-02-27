@@ -4,6 +4,10 @@ creates a simple object clone of a Backbone.Model or Backbone.Collection
 # Why
 Our main use case is with the Flux architecture for React apps, which emphasizes immutable data in the views.  In our stores we use Backbone to talk to the API and mutate data, and then pass along immutable clones to the view.
 
+We're using Facebook's [immutable](http://facebook.github.io/immutable-js/) library for this reason.
+
+If you just want regular js objects, you can just call `.toJS()` on the result.
+
 # Usage
 
 Given this domain.
