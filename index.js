@@ -18,7 +18,9 @@ var debackbonify = function(model) {
   if (model.relations) {
     _.each(model.relations, function(relation) {
       var associatedModel = model.get(relation.key);
-      clone[relation.key] = debackbonify(associatedModel);
+      if (associatedModel) {
+        clone[relation.key] = debackbonify(associatedModel);
+      }
     });
   }
   return Immutable.Map(clone);

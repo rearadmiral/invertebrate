@@ -74,6 +74,11 @@ describe('Invertebrate', function() {
     it('includes associated models', function() {
       invertebrate(model).toJS().author.should.have.property('name', 'Karen Russell');
     });
+
+    it('ignores null relations', function() {
+      model.set('author', null);
+      should(invertebrate(model).toJS().author).be.null;
+    });
   });
 
   describe('given a simple Backbone.Model', function() {
