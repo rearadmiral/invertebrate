@@ -7,6 +7,34 @@ var invertebrate = require('./index');
 
 describe('Invertebrate', function() {
 
+  describe('given a non-Backbone object', function() {
+
+    it('throws an error when given undefined', function() {
+      should.throws(function() {
+        invertebrate(undefined);
+      });
+    });
+
+    it('throws an error when given null', function() {
+      should.throws(function() {
+        invertebrate(null);
+      });
+    });
+
+    it('throws an error when given empty object', function() {
+      should.throws(function() {
+        invertebrate({});
+      });
+    });
+
+    it('throws an error when given array of empty object', function() {
+      should.throws(function() {
+        invertebrate([{}]);
+      });
+    });
+
+  });
+
   describe('given a Backbone.Collection', function() {
 
     var currentYear = 2015;
@@ -78,6 +106,14 @@ describe('Invertebrate', function() {
     it('ignores null relations', function() {
       model.set('author', null);
       should(invertebrate(model).toJS().author).be.null;
+    });
+  });
+
+  describe('given an array of Backbone.Model', function() {
+    it('it produces an array', function() {
+      var ModelClass = Backbone.Model.extend({});
+      var model = new ModelClass({foo: 'bar'});
+      invertebrate([model]).toJS()[0].foo.should.be.exactly('bar');
     });
   });
 
