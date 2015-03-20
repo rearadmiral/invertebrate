@@ -71,5 +71,5 @@ Clone will be something like this:
 
 No functions, not listeners, just the plain attributes.
 
-This also plays nicely with the backbone-associations plugin.  It will recursively invertebratize your relations. 
+This also plays nicely with the [backbone-associations](http://dhruvaray.github.io/backbone-associations/) plugin.  It will recursively invertebratize your relations. 
 
