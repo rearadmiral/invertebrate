@@ -12,7 +12,7 @@ If you just want regular js objects, you can just call `.toJS()` on the result.
 
 Given this domain.
 
-```
+```javascript
     var Book = Backbone.Model.extend({
       invertebrateProperties: ['age'],
       age: function() {
@@ -28,7 +28,7 @@ Given this domain.
 
 And this instantiated data:
 
-```
+```javascript
     collection = new BookCollection([
           {
             title: 'Vampires in the Lemon Grove',
@@ -45,14 +45,14 @@ And this instantiated data:
 
 You can use this:
 
-```
+```javascript
 var invertebrate = require('invertebrate');
 var clone = invertebrate(collection);
 ```
 
 Clone will be something like this:
 
-```
+```javascript
 [
           {
             title: 'Vampires in the Lemon Grove',
@@ -72,4 +72,12 @@ Clone will be something like this:
 No functions, not listeners, just the plain attributes.
 
 This also plays nicely with the [backbone-associations](http://dhruvaray.github.io/backbone-associations/) plugin.  It will recursively invertebratize your relations. 
+
+## camelCasing and Rails
+
+By default, Rails apps tend to produce snake_cased javascript attributes. This library converts them to camelcase by default. If you don't want this behavior, use this:
+
+```javascript
+var clone = invertebrate(model, { camelize: false });
+```
 
