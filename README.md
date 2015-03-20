@@ -73,7 +73,7 @@ No functions, not listeners, just the plain attributes.
 
 This also plays nicely with the [backbone-associations](http://dhruvaray.github.io/backbone-associations/) plugin.  It will recursively invertebratize your relations. 
 
-## camelCasing and Rails
+## Camelcase and Rails
 
 By default, Rails apps tend to produce snake_cased javascript attributes. This library converts them to camelcase by default. If you don't want this behavior, use this:
 
