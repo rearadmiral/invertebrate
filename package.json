@@ -4,7 +4,7 @@
   "description": "creates simple clones of Backbone.Model and Backbone.Collection objects",
   "main": "index.js",
   "scripts": {
-    "test": "mocha spec"
+    "test": "node node_modules/.bin/mocha spec.js"
   },
   "repository": {
     "type": "git",
@@ -24,9 +24,6 @@
     "backbone-associations": "^0.6.2",
     "mocha": "^2.1.0",
     "should": "^5.0.0"
-  },
-  "scripts": {
-    "test": "node node_modules/.bin/mocha spec.js"
   },
   "author": "Bill DePhillips",
   "license": "MIT",
