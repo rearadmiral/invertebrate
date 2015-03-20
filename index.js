@@ -1,7 +1,26 @@
 var _ = require('lodash');
 var Immutable = require('immutable');
 
-var debackbonify = function(model) {
+var extractAttributes = function(attributes, options) {
+  var defaultOptions = {
+    camelize: true
+  };
+  options = _.merge(defaultOptions, (options || {}));
+
+  var clonedAttributes = _.clone(attributes);
+  var snakeCaseKeys = [];
+  if (options.camelize === true) {
+    _.each(_.keys(attributes), function(propertyName) {
+      if (propertyName.match('_')) {
+        snakeCaseKeys.push(propertyName);
+        clonedAttributes[_.camelCase(propertyName)] = clonedAttributes[propertyName];
+      }
+    });
+  }
+  return _.omit(clonedAttributes, snakeCaseKeys);
+};
+
+var debackbonify = function(model, options) {
 
   if (typeof model === 'undefined' || model === null) {
     throw new Error('cannot invertebrate null');
@@ -12,7 +31,7 @@ var debackbonify = function(model) {
       return debackbonify(member);
     }));
   } else if (model.attributes) {
-    var clone = _.clone(model.attributes);
+    var clone = extractAttributes(model.attributes, options);
     if (model.invertebrateProperties) {
       _.each(model.invertebrateProperties, function(propertyName) {
         clone[propertyName] = model[propertyName]();

@@ -117,6 +117,34 @@ describe('Invertebrate', function() {
     });
   });
 
+  describe('given a model from snake_cased json', function() {
+    var model;
+
+    beforeEach(function() {
+      model = new Backbone.Model({ first_name: 'Karen', last_name: 'Russell'});
+    });
+
+    it('camelizes snake_cased attributes by default', function() {
+      var plain = invertebrate(model).toJS();
+      plain.firstName.should.be.exactly('Karen');
+      plain.lastName.should.be.exactly('Russell');
+    });
+
+    it('removes the snake_cased attribute', function() {
+      var plain = invertebrate(model, { camelize: true }).toJS();
+      should(plain.first_name).be.undefined;
+      should(plain.last_name).be.undefined;
+    });
+
+    it('when camelize = false, leaves snake_cased alone', function() {
+      var plain = invertebrate(model, { camelize: false }).toJS();
+      plain.first_name.should.be.exactly('Karen');
+      plain.last_name.should.be.exactly('Russell');
+      should(plain.firstName).be.undefined;
+      should(plain.lastName).be.undefined;
+    });
+  });
+
   describe('given a simple Backbone.Model', function() {
 
     var Author = Backbone.Model.extend({
